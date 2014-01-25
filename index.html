@@ -15,11 +15,13 @@
 		var abs_time = 0;
 		var total_abs_time = 0;
 		var min = 0, sec = 0, hr = 0;
+		var mins = 0, secs = 0, hrs = 0; 
 		var pro_time;
 		var then, now;
 		var timer;
 		var diff = 0;
-		var $updateContainer;
+		var $updateContainert;
+		var $updateContainers;
 		var isActive;
 		
 		checkedCookie=0;
@@ -79,8 +81,13 @@
 			sec = total_abs_time % 60;
 			min = Math.floor(total_abs_time / 60) % 60;
 			hr = Math.floor(total_abs_time / 3600) % 24;
+			secs = abs_time % 60;
+			mins = Math.floor(abs_time / 60) % 60;
+			hrs = Math.floor(abs_time / 3600) % 24;
 			
 			var s = sec, m = min, h = hr;
+			var ss = secs, ms = mins, hs = hrs;
+
 			
 			if (sec < 10)
 				s = "0" + sec;
@@ -90,15 +97,29 @@
 				
 			if (hr < 10)
 				h = "0" + hr;
+
+			if (secs < 10)
+				ss = "0" + secs;
+				
+			if (mins < 10)
+				ms = "0" + mins;
+				
+			if (hrs < 10)
+				hs = "0" + hrs;
 			
 			var t = h + ":" + m + ":" + s;
+			var ts = hs + ":" + ms + ":" + ss;
+
 			//alert(t);
-			$updateContainer.html("Time well wasted: " + t);
+			$updateContainert.html("Time well wasted: " + t);
+			$updateContainers.html("This time: " + ts);
+
 		}
 		
 		function activate_buttons()
 		{
-			$updateContainer = $("#timer")
+			$updateContainert = $("#timert")
+			$updateContainers = $("#timers")
 			
 			$("#gobutton").click(function()
 			{
@@ -174,7 +195,8 @@
 	
 	
 	<body onload="activate_buttons()">
-		<div id="timer" style="position:fixed; top:85%; left:27.6%; font-size:1.2em; font-family:Impact, Charcoal, sans-serif; color:#656565"></div>
+		<div id="timert" style="position: fixed; top: 83%; left: 27.6%; font-size: 1.2em; font-family: Impact,Charcoal,sans-serif; color: rgb(101, 101, 101);"></div>
+		<div id="timers" style="position: fixed; top: 88%; left: 33.6%; font-family: Impact,Charcoal,sans-serif; color: rgb(145, 145, 145); font-size: 0.7em;"></div>
 		<form>
 			<input id="time" type="number" style="position: fixed; width: 15%; height: 5.3%; left: 49%; top: 84.3%;" placeholder="How many minutes?"></input>
 		</form>
