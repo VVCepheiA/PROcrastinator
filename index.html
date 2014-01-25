@@ -9,8 +9,16 @@
 		<link rel="shortcut icon" href="/images/icon.ico">
 		<script src="jquery.js" type="text/javascript"></script>
 		<script>
-		var time = [20, 10, 10];
-		var link = ["http://youtube.com/", "http://overclock.net/", "http://reddit.com/r/leagueoflegends"];
+		var time = [0, 8, 480, 5, 3, 999, 10, 15, 5, 15, 100, 500, 120, 200, 30, 20, 40, 2, 50, 150, 60, 70, 80, 90, 100, 130, 150, 170, 190, 700, 650, 800, 400, 350, 600, 550, 250, 750, 850, 950, 450, 300, 320, 220, 520, 720, 600, 600, 600, 600];
+		var link = ["https://myspace.com/", "http://www.staggeringbeauty.com/", "http://crunchyroll.com", "http://www.addictinggames.com/strategy-games/eye-surgery-game.jsp","http://www.youtube.com/watch?v=cbP2N1BQdYc",
+					"http://www.youtube.com/watch?v=dQw4w9WgXcQ", "http://www.reddit.com/search?q=funny", "http://www.minigamesfreak.com/playonline/mario-vs-zombie-defense.html", "http://www.scaryforkids.com/scary-maze/",
+		            "http://www.gameshed.com/Scary-Games/Color-Vision-Deficiency-Test/play.html", "https://apps.facebook.com/tetris_battle/?fb_source=search&ref=br_tf", "https://apps.facebook.com/candycrush/?fb_source=search&ref=br_tf",
+		            "http://megashare.info/watch-jack-and-jill-online-TkRBME1nPT0", "http://shakespeare.mit.edu/", "http://www.blifaloo.com/illusions/index.php", "http://ie.microsoft.com/testdrive/performance/letitsnow/","http://www.mind-crime.com/", 
+		            "http://imgur.com/JyVenql", "http://www.ted.com/", "http://www.acg-tube.com/the-host-2013", "http://www.reddit.com/r/doge/search?q=doge&sort=relevance&restrict_sr=on&t=all", "http://www.pokemonxy.com/en-us/root/", "http://www.callofduty.com/",
+		            "http://us.battle.net/sc2/en/", "http://www.funnyjunk.com/", "http://www.funnyjunk.com/", "http://www.reddit.com/r/doge/search?q=doge&sort=relevance&restrict_sr=on&t=all", "http://www.funimation.com/", "http://www.ebay.ca/", 
+		            "http://imgur.com/gallery/HE86p7b", "http://imgur.com/", "http://www.reddit.com/", "https://www.tumblr.com/", "http://9gag.com/", "http://www.reddit.com/r/cringe/", "http://www.battlefield.com/", "http://instagram.com/", "http://www.amazon.ca/",
+		            "http://www.viki.com/", "https://twitter.com/", "http://blog.counter-strike.net/", "http://videolinkz.us/nv.php?url=5103ee1ae9b9f", "http://www.ctvnews.ca/", "https://news.ycombinator.com/ ", "http://maplestory.nexon.net/micro-site/beasttamer", 
+		            "http://www.youtube.com/watch?v=wZZ7oFKsKzY", "http://www.youtube.com/watch?v=rGIw7xk3q-g", "http://www.youtube.com/watch?v=2V-q0p4hpGQ", "http://www.youtube.com/watch?v=kxopViU98Xo"];
 		
 		var abs_time = 0;
 		var total_abs_time = 0;
@@ -23,14 +31,15 @@
 		var $updateContainert;
 		var $updateContainers;
 		var isActive;
+		var activeInterval = false;
 		
 		checkedCookie=0;
 
 		function setCookie(cname,cvalue,exdays)
 		{
 			var d = new Date();
-			d.setTime(d.getTime()+(exdays*24*60*60*1000));
-			var expires = "expires="+d.toGMTString();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			var expires = "expires=" + d.toGMTString();
 			document.cookie = cname + "=" + cvalue + "; " + expires;
 		}
 
@@ -56,10 +65,7 @@
 		
 		function updateTime()
 		{
-			
-			//now = new Date().getTime();
-			//diff = now - then;
-			
+
 			var time = getCookie("time");
 			if (time != "" && checkedCookie == 0)
 			{
@@ -68,12 +74,7 @@
 			}
 			setCookie("time", total_abs_time, 365);
 			
-			
-			
-			//sec = Math.floor (diff / 1000 % 60);
-			//min = Math.floor (diff / 60000 % 60);
-			//hr = Math.floor (diff / 3600000 % 24);
-			
+
 			//if (!isActive)
 				abs_time++;
 				total_abs_time++;
@@ -127,7 +128,7 @@
 				var len = link.length;
 				var counter = 0;
 				var found = true;
-			
+				
 				do
 				{
 					var n = Math.floor (Math.random() * len);
@@ -154,7 +155,12 @@
 					sec = 0;
 					hr = 0;
 					$("#p1").remove();
-					setInterval(updateTime, 1000);
+					
+					if (!activeInterval)
+					{
+						var c = setInterval(updateTime, 1000);
+						activeInterval = true;
+					}
 				}
 				
 			});
@@ -200,21 +206,21 @@
 		<form>
 			<input id="time" type="number" style="position: fixed; width: 15%; height: 5.3%; left: 49%; top: 84.3%;" placeholder="How many minutes?"></input>
 		</form>
-		<div id="gobutton" class="button" style="top: 84%; width: 3.7%; left: 66.3%; height: 6.4%;"> </div>
+		<div class="button" id="gobutton" style="top:85%; left:66%; height:7%; width:3.7%;" title = "Waste Your Time"> </div>
 
-		<div class="button" id="eating" onclick="window.open('http://www.youtube.com')" style="top:34%; left:28%; height:46%; width:5.9%;"> </div>
-		<div class="button" id="daydreaming" onclick="window.open('http://www.youtube.com')" style="top:24%; left:28%; height:9.4%; width:38.2%;"> </div>
-		<div class="button" id="nap" onclick="window.open('http://www.youtube.com')" style="top:34%; left:34.5%; height:8.7%; width:10.6%;"> </div>
-		<div class="button" id="novel" onclick="window.open('http://www.youtube.com')" style="top:33.4%; left:45.2%; height:8.6%; width:17%;"> </div>
+		<div class="button" id="eating" onclick="window.open('http://gymflow100.com/uk-study-finds-fat-people-lack-willpower-to-diet-despite-cancer-risk/')" style="top:34%; left:28%; height:46%; width:5.9%;"> </div>
+		<div class="button" id="daydreaming" onclick="window.open('http://www.youtube.com/watch?v=euxXBvdrzxQ')" style="top:24%; left:28%; height:9.4%; width:38.2%;"> </div>
+		<div class="button" id="nap" onclick="window.open('http://pictures.4ever.eu/tag/12604/sleeping-dog?pg=2')" style="top:34%; left:34.5%; height:8.7%; width:10.6%;"> </div>
+		<div class="button" id="novel" onclick="window.open('http://marimarister.files.wordpress.com/2012/03/looking-for-alaska.pdf')" style="top:33.4%; left:45.2%; height:8.6%; width:17%;"> </div>
 		<div class="button" id="reddit" onclick="window.open('http://www.reddit.com')" style="top: 42.4%; left: 34.5%; height: 8.6%; width: 19.8%;"> </div>
 		<div class="button" id="league" onclick="window.open('http://www.leagueoflegends.com')" style="top: 42.8%; left: 54.5%; height: 8.4%; width: 7.5%;"> </div>
-		<div class="button" id="doodling" onclick="window.open('http://www.youtube.com')" style="top: 51.8%; left: 34.2%; height: 8.4%; width: 27.7%;"> </div>
+		<div class="button" id="doodling" onclick="window.open('http://en.wikipedia.org/wiki/Doodle')" style="top: 51.8%; left: 34.2%; height: 8.4%; width: 27.7%;"> </div>
 		<div class="button" id="facebook" onclick="window.open('http://www.facebook.com')" style="top: 61.7%; left: 33.9%; height: 11.2%; width: 27.9%;"> </div>
 		<div class="button" id="youtube" onclick="window.open('http://www.youtube.com')" style="top: 74.3%; left: 34.1%; height: 4.7%; width: 14.2%;"> </div>
-		<div class="button" id="movies" onclick="window.open('http://www.youtube.com')" style="top: 74.3%; left: 49.3%; height: 4.7%; width: 11.7%;"> </div>
-		<div class="button" id="messaging" onclick="window.open('http://www.youtube.com')" style="top: 34.3%; left: 62.2%; height: 44.9%; width: 3.2%;"> </div>
+		<div class="button" id="movies" onclick="window.open('http://movies.netflix.com/WiHome')" style="top: 74.3%; left: 49.3%; height: 4.7%; width: 11.7%;"> </div>
+		<div class="button" id="messaging" onclick="window.open('http://www.youtube.com/watch?v=VxxgDj90rew')" style="top: 34.3%; left: 62.2%; height: 44.9%; width: 3.2%;"> </div>
 		<div class="button" id="twitter" onclick="window.open('http://www.twitter.com')" style="top: 41.3%; left: 65.6%; height: 38.3%; width: 4.2%;"> </div>
-		<div class="button" id="dota" onclick="window.open('http://www.youtube.com')" style="top: 24%; left: 66.2%; height: 17.1%; width: 3.1%;"> </div>
+		<div class="button" id="dota" onclick="window.open('http://www.playdota.com/')" style="top: 24%; left: 66.2%; height: 17.1%; width: 3.1%;"> </div>
 
 		<p id="p1" style="position: fixed; left: 28%; top: 82.5%; font-size:1em; font-family:Impact, Charcoal, sans-serif; color:#656565">Start procrastinating like a PRO</p>
 
