@@ -140,7 +140,7 @@
 			
 			$(document).ready(function() {
 				$("#time").keydown(function(event) {
-					// Allow: backspace, delete, tab, escape, enter and .
+					// Allow: backspace, delete
 					if ( $.inArray(event.keyCode,[46,8]) !== -1 ||
 						 // Allow: Ctrl+A
 						(event.keyCode == 65 && event.ctrlKey === true) || 
@@ -148,10 +148,11 @@
 						(event.keyCode >= 35 && event.keyCode <= 39)) {
 							 // let it happen, don't do anything
 							 return;
-					}
+					} //enter
 					else if ( $.inArray(event.keyCode,[13]) !== -1) {
-							$("#gobutton").click();
-							return;
+						event.preventDefault();
+						$("#gobutton").click();
+						return;
 					}
 					else {
 						// Ensure that it is a number and stop the keypress
@@ -174,9 +175,9 @@
 	<body onload="activate_buttons()">
 		<div id="timer" style="position:fixed; top:86%; left:27.6%; width:25%; height:5.3%"></div>
 		<form>
-			<input id="time" type="number" placeholder="How many minutes?" style="position:fixed; top:86%; left:49.6%; width:15%; height:5.3%"/>
+			<input id="time" type="number" style="position: fixed; width: 15%; height: 5.3%; left: 49%; top: 84.3%;" placeholder="How many minutes?"></input>
 		</form>
-		<div class="button" id="gobutton" style="top:85%; left:66%; height:7%; width:3.7%;"> </div>
+		<div id="gobutton" class="button" style="top: 84%; width: 3.7%; left: 66.3%; height: 6.4%;"> </div>
 
 		<div class="button" id="eating" onclick="window.open('http://www.youtube.com')" style="top:34%; left:28%; height:46%; width:5.9%;"> </div>
 		<div class="button" id="daydreaming" onclick="window.open('http://www.youtube.com')" style="top:24%; left:28%; height:9.4%; width:38.2%;"> </div>
@@ -191,6 +192,8 @@
 		<div class="button" id="messaging" onclick="window.open('http://www.youtube.com')" style="top: 34.3%; left: 62.2%; height: 44.9%; width: 3.2%;"> </div>
 		<div class="button" id="twitter" onclick="window.open('http://www.twitter.com')" style="top: 41.3%; left: 65.6%; height: 38.3%; width: 4.2%;"> </div>
 		<div class="button" id="dota" onclick="window.open('http://www.youtube.com')" style="top: 24%; left: 66.2%; height: 17.1%; width: 3.1%;"> </div>
+
+		<p style="position: fixed; left: 28%; top: 82.5%; font-size:1em; font-family:Impact, Charcoal, sans-serif; color:#656565">Start procrastinating like a PRO</p>
 
 		<img src="images/PROcrastinator.jpg" style="width:100%; height:100%; padding:0; position:fixed; top:0px; left:0px; z-index:-1">
 	</body>

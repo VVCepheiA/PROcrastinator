@@ -2,10 +2,6 @@ body {
     font-family: Calibri, "Futura", Trebuchet MS, Calibri, Arial, sans-serif;
     font-size:22pt;
     margin: 0;
-	background-image:url ("images/bg.jpg");
-	background-attachment:fixed;
-	background-position: center;
-    color: #000;
 }
 
 .fade {
