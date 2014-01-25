@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+</script>
+
+<html>
+	<head>
+		<title> PROCRASTINATOR </title>
+		<link rel="stylesheet" type="text/css" href="main.css" />
+		<link rel="shortcut icon" href="/images/icon.ico">
+		<script src="jquery.js" type="text/javascript"></script>
+		<script>
+		//LOLOLOL
+		var time = [20, 10, 10];
+		var link = ["http://youtube.com/", "http://overclock.net/", "http://reddit.com/r/leagueoflegends"];
+		
+		//~~~~~~~
+		var abs_time = 0;
+		var total_abs_time = 0;
+		var min = 0, sec = 0, hr = 0;
+		var pro_time;
+		var then, now;
+		var timer;
+		var diff = 0;
+		var $updateContainer;
+		var isActive;
+		
+		checkedCookie=0;
+
+		function setCookie(cname,cvalue,exdays)
+		{
+			var d = new Date();
+			d.setTime(d.getTime()+(exdays*24*60*60*1000));
+			var expires = "expires="+d.toGMTString();
+			document.cookie = cname + "=" + cvalue + "; " + expires;
+		}
+
+		function getCookie(cname)
+		{
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0; i<ca.length; i++) 
+			{
+				var c = ca[i].trim();
+				if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+			}
+			return "";
+		}
+
+		window.onfocus = function () { 
+			isActive = true; 
+		}; 
+
+		window.onblur = function () { 
+			isActive = false; 
+		}; 
+		
+		function updateTime()
+		{
+			
+			//now = new Date().getTime();
+			//diff = now - then;
+			
+			var time = getCookie("time");
+			if (time != "" && checkedCookie == 0)
+			{
+				total_abs_time += time;
+				checkedCookie=1;
+			}
+			setCookie("time", total_abs_time, 365);
+			
+			
+			
+			//sec = Math.floor (diff / 1000 % 60);
+			//min = Math.floor (diff / 60000 % 60);
+			//hr = Math.floor (diff / 3600000 % 24);
+			
+			//if (!isActive)
+				abs_time++;
+				total_abs_time++;
+			
+			sec = total_abs_time % 60;
+			min = Math.floor(total_abs_time / 60) % 60;
+			hr = Math.floor(total_abs_time / 3600) % 24;
+			
+			var s = sec, m = min, h = hr;
+			
+			if (sec < 10)
+				s = "0" + sec;
+				
+			if (min < 10)
+				m = "0" + min;
+				
+			if (hr < 10)
+				h = "0" + hr;
+			
+			var t = h + ":" + m + ":" + s;
+			//alert(t);
+			$updateContainer.html("Time well wasted: " + t);
+		}
+		
+		function activate_buttons()
+		{
+			$updateContainer = $("#timer")
+			
+			$("#gobutton").click(function()
+			{
+				pro_time = document.getElementById("time").value;
+				var len = link.length;
+				var counter = 0;
+				var found = true;
+			
+				do
+				{
+					var n = Math.floor (Math.random() * len);
+					counter++;
+					
+					if (counter > 2000)
+					{
+						alert("No match found");
+						found = false;
+						break;
+					}
+				}
+				while (Math.abs(pro_time - time[n]) / time[n] > 0.15)
+				
+				//alert(counter);
+				if (found)
+				{
+					var win = window.open(link[n], '_blank');
+					win.focus();
+					
+					then = new Date().getTime();
+					
+					min = 0;
+					sec = 0;
+					hr = 0;
+					setInterval(updateTime, 1000);
+				}
+				
+			});
+			
+			
+			$(document).ready(function() {
+				$("#time").keydown(function(event) {
+					// Allow: backspace, delete, tab, escape, enter and .
+					if ( $.inArray(event.keyCode,[46,8,9,27,13,190]) !== -1 ||
+						 // Allow: Ctrl+A
+						(event.keyCode == 65 && event.ctrlKey === true) || 
+						 // Allow: home, end, left, right
+						(event.keyCode >= 35 && event.keyCode <= 39)) {
+							 // let it happen, don't do anything
+							 return;
+					}
+					else {
+						// Ensure that it is a number and stop the keypress
+						if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+							event.preventDefault(); 
+						}
+						
+						if (document.getElementById("time").value > 100)
+						{
+							event.preventDefault();
+						}
+					}
+				});
+			});	
+		}
+		</script>
+	</head>
+	
+	
+	<body onload="activate_buttons()">
+		<div id="timer" style="position:fixed; top:86%; left:27.6%; width:25%; height:5.3%"></div>
+		<form>
+			<input id="time" type="number" placeholder="How many minutes?" style="position:fixed; top:86%; left:49.6%; width:15%; height:5.3%"/>
+		</form>
+		<div class="button" id="gobutton" style="top:85%; left:66%; height:7%; width:3.7%;"> </div>
+
+		<div class="button" id="eating" onclick="window.open('http://www.youtube.com')" style="top:34%; left:28%; height:46%; width:5.9%;"> </div>
+		<div class="button" id="daydreaming" onclick="window.open('http://www.youtube.com')" style="top:24%; left:28%; height:9.4%; width:38.2%;"> </div>
+		<div class="button" id="nap" onclick="window.open('http://www.youtube.com')" style="top:34%; left:34.5%; height:8.7%; width:10.6%;"> </div>
+		<div class="button" id="novel" onclick="window.open('http://www.youtube.com')" style="top:33.4%; left:45.2%; height:8.6%; width:17%;"> </div>
+		<div class="button" id="reddit" onclick="window.open('http://www.reddit.com')" style="top: 42.4%; left: 34.5%; height: 8.6%; width: 19.8%;"> </div>
+		<div class="button" id="league" onclick="window.open('http://www.leagueoflegends.com')" style="top: 42.8%; left: 54.5%; height: 8.4%; width: 7.5%;"> </div>
+		<div class="button" id="doodling" onclick="window.open('http://www.youtube.com')" style="top: 51.8%; left: 34.2%; height: 8.4%; width: 27.7%;"> </div>
+		<div class="button" id="facebook" onclick="window.open('http://www.facebook.com')" style="top: 61.7%; left: 33.9%; height: 11.2%; width: 27.9%;"> </div>
+		<div class="button" id="youtube" onclick="window.open('http://www.youtube.com')" style="top: 74.3%; left: 34.1%; height: 4.7%; width: 14.2%;"> </div>
+		<div class="button" id="movies" onclick="window.open('http://www.youtube.com')" style="top: 74.3%; left: 49.3%; height: 4.7%; width: 11.7%;"> </div>
+		<div class="button" id="messaging" onclick="window.open('http://www.youtube.com')" style="top: 34.3%; left: 62.2%; height: 44.9%; width: 3.2%;"> </div>
+		<div class="button" id="twitter" onclick="window.open('http://www.twitter.com')" style="top: 41.3%; left: 65.6%; height: 38.3%; width: 4.2%;"> </div>
+		<div class="button" id="dota" onclick="window.open('http://www.youtube.com')" style="top: 24%; left: 66.2%; height: 17.1%; width: 3.1%;"> </div>
+
+		<img src="images/bg.jpg" style="width:100%; height:100%; padding:0; position:fixed; top:0px; left:0px; z-index:-1">
+	</body>
+	
+</html>
